@@ -1,9 +1,9 @@
 const app = require('./app/app');
-// const connestingMongoDb = require('./config')
+const connectingMongoDb = require('./config');
 
-const PORT = 5000 || process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server is running at: http://localhost:${PORT}/`);
-    // await connestingMongoDb()
+app.listen(PORT, async () => {
+  console.log(`Server is running at: http://localhost:${PORT}`);
+  await connectingMongoDb();
 });

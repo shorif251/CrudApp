@@ -1,19 +1,16 @@
+const { ErrorResponse } = require('../service/responseHandler');
+
 const wildCardHandler = (req, res, next) => {
-    res.status(401).json({
-      error: 'Invalid-Route',
-      success: false,
-    });
-    next();
-  };
+  ErrorResponse(res, 'Invalid Route', 401);
+  next();
+};
 
-  const serverErrorHandler = (req, res, next) => {
-    res.status(500).json({
-      error: 'Server fails to response',
-      success: false,
-    });
-  };
+const serverErrorHandler = (req, res, next) => {
+  ErrorResponse(res, 'Server fails to response');
+  next();
+};
 
-  module.exports = {
-    wildCardHandler,
-    serverErrorHandler,
-  };
+module.exports = {
+  wildCardHandler,
+  serverErrorHandler,
+};

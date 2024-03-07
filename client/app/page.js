@@ -1,5 +1,9 @@
+import LoginForm from "./ReuseableComonents/LoginForm"
+
 export default function page() {
   return (
-    <div>Hello Social media</div>
+    <div className="md:my-[10%]">
+        <LoginForm />
+    </div>
   )
 }

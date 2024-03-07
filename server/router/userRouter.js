@@ -1,20 +1,39 @@
 const express = require('express');
 const {
- UserFind, UserCreate, UserUpdate, UserDelete, UserFindById,
+  UserFind,
+  UserCreate,
+  UserDataUpdate,
+  UserImgUpdate,
+  UserDelete,
+  UserFindById,
 } = require('../controller/userController');
 const { multerErrorHandler, upload } = require('../middleware/multerHandler');
+const checkLogin = require('../middleware/checkLogin');
+
+const validationAuth = require('../middleware/validationAuth');
+const { UserValidation } = require('../middleware/express_validation');
 
 const router = express.Router();
 
-router.get('/users', UserFind);
+router.get('/users_Data', UserFind);
 
-router.get('/users/:id', UserFindById);
+router.get('/users_Data/:id', checkLogin, UserFindById);
 
-router.post('/users', upload.single('keyName'), UserCreate); // upload single photo
+router.post(
+  '/users_Data',
+  upload.single('img'),
+  UserValidation,
+  validationAuth,
+  UserCreate,
+); // upload single photo
 
-router.put('/users/', UserUpdate);
+// router.post('/users_Data', upload.single('keyName'), checkLogin, UserCreate); // upload single photo
 
-router.delete('/users/:id', UserDelete);
+router.put('/users_Data/:id', checkLogin, UserDataUpdate);
+
+router.put('/users_Data/Img/:id', checkLogin, UserImgUpdate);
+
+router.delete('/users_Data/:id', checkLogin, UserDelete);
 
 router.use(multerErrorHandler);
 
